@@ -22,7 +22,7 @@ void RingNode::setAge(int new_age) {
 
 std::string RingNode::getDescription()const{ return description_; }
 
-void RingNode::setDescription(std::string description) {
+void RingNode::setDescritpion(std::string description) {
 	description_ = description;
 }
 

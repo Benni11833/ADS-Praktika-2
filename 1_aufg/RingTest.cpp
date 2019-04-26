@@ -2,7 +2,7 @@
 * ADS Praktikum 2.1
 * Unit-Testdatei
 *
-* ï¿½nderungen fï¿½rs Praktikum untersagt!
+* Änderungen fürs Praktikum untersagt!
 *************************************************/
 #include "catch.hpp"
 #include "Ring.h"
@@ -13,11 +13,11 @@ using namespace std;
 
 // Friend-Methode fuer Testroutine
 RingNode * get_anker(Ring& r) {
-	return r.anker_;
+	return r.anker;
 }
 
 int get_AnzahlNodes(Ring& r) {
-	return r.Anzahl_Nodes_;
+	return r.AnzahlNodes;
 }
 
 TEST_CASE("Ring Testing", "[Ring]" ) {
