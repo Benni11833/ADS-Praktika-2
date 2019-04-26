@@ -23,6 +23,8 @@ int main()
 {
 	int result = Catch::Session().run();
 	// Ihr Code hier:
+	system("pause");
+	return 0;
 	int x{ 0 };
 	std::string desc{ "" }, data{ "" };
 	Ring r1;
@@ -62,6 +64,12 @@ int main()
 		}
 	}
 	/*Ring rloop;
+	rloop.addNode("Alpha", "Data");
+	rloop.addNode("Beta", "Data");
+	rloop.addNode("Gamma", "Data");
+	rloop.addNode("Alpha", "Data");
+	rloop.addNode("Beta", "Data");
+	rloop.addNode("Gamma", "Data");
 	rloop.addNode("Alpha", "Data");
 	rloop.addNode("Beta", "Data");
 	rloop.addNode("Gamma", "Data");*/
