@@ -43,7 +43,7 @@ RingNode* Ring::getPredecessor(RingNode* tmp) {
 	}
 }
 
-RingNode* Ring::getLast() {
+RingNode* Ring::getLast() {	//getYoungest()
 	RingNode* run_ptr = anker;
 	while (run_ptr->getNext() != anker)
 		run_ptr = run_ptr->getNext();
@@ -81,11 +81,15 @@ void Ring::addNode(std::string description, std::string symbolic_data) {
 			++AnzahlNodes;
 		}
 		else {	//aeltesten loeschen
-			RingNode* oldest = getOldestNode();
+			/*RingNode* oldest = getOldestNode();
 			RingNode* predec = getPredecessor(oldest);
 			new_entry->setNext(oldest->getNext());
 			predec->setNext(new_entry);
-			delete oldest;
+			delete oldest;*/
+			RingNode* del = getLast();
+			getPredecessor(getLast())->setNext(new_entry);
+			new_entry->setNext(anker);
+			delete del;
 		}
 		anker = new_entry;
 		incrementAges();
