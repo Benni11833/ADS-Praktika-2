@@ -5,6 +5,7 @@
 *************************************************/
 #pragma once
 #include <string>
+#include <iostream>
 
 class RingNode{
 	
@@ -27,5 +28,7 @@ public:
 	void setData(std::string new_symbolic_data);
 	RingNode* getNext()const;
 	void setNext(RingNode* new_next);
+	friend std::ostream& operator<<(std::ostream& os, RingNode* node);
 	//
 };
+

@@ -25,7 +25,7 @@ int main()
 	// Ihr Code hier:
 	system("pause");
 	return 0;
-	int x{ 0 };
+	/*int x{ 0 };
 	std::string desc{ "" }, data{ "" };
 	Ring r1;
 
@@ -62,20 +62,19 @@ int main()
 			std::cout << "?> ";
 			break;
 		}
-	}
-	/*Ring rloop;
-	rloop.addNode("Alpha", "Data");
-	rloop.addNode("Beta", "Data");
-	rloop.addNode("Gamma", "Data");
-	rloop.addNode("Alpha", "Data");
-	rloop.addNode("Beta", "Data");
-	rloop.addNode("Gamma", "Data");
-	rloop.addNode("Alpha", "Data");
-	rloop.addNode("Beta", "Data");
-	rloop.addNode("Gamma", "Data");*/
+	}*/
+	Ring rloop;
+	int n{0};
+	std::cout << "n: ";
+	std::cin >> n;
+	for(int i=0; i < n; i++)
+		rloop.addNode("Descri"+std::to_string(i), "Data"+std::to_string(i));
+	
+	rloop.printTest();
+	std::cout << "AnzahlNode - sollte " << n << " sein: " << rloop.size() << std::endl;
 
 	//
 	///////////////////////////////////////
-	system("Pause");
+	//system("Pause");
 	return 0;
 }

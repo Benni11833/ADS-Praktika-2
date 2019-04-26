@@ -22,6 +22,8 @@ private:
 public:
 	Ring();
 	~Ring();
+	void printTest() const;
+	size_t size()const{ return AnzahlNodes; }
 	void addNode(std::string description, std::string symbolic_data);
 	bool search(std::string symbolic_data)const;
 	void print()const;

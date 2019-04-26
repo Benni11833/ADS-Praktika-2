@@ -5,6 +5,7 @@
 *************************************************/
 #include "RingNode.h"
 
+std::string line(50, '-');
 
 RingNode::RingNode() 
 	:old_age_{ 0 }, description_{ "X" }, symbolic_data_{ "empty" }, next_{ nullptr }
@@ -38,4 +39,15 @@ RingNode* RingNode::getNext()const {
 
 void RingNode::setNext(RingNode* new_next) {
 	next_ = new_next;
+}
+
+std::ostream& operator<<(std::ostream& os, RingNode* node){
+	os << line << std::endl << "Adresse: " << &node
+	<< std::endl << "Age: " << node->old_age_
+	<< std::endl << "Description: " << node->description_
+	<< std::endl << "Data: " << node->symbolic_data_
+	<< std::endl << "Adresse-Next: " << &(node->next_)
+	<< std::endl << std::endl;
+
+	return os;
 }

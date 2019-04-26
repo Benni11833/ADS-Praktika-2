@@ -8,7 +8,7 @@
 #include <iostream>
 #include <string>
 
-std::string line(50, '-');
+extern std::string line;
 
 #define Max_Ring_Size 6
 
@@ -48,6 +48,14 @@ RingNode* Ring::getLast() {	//getYoungest()
 	while (run_ptr->getNext() != anker)
 		run_ptr = run_ptr->getNext();
 	return run_ptr;
+}
+
+void Ring::printTest() const{
+	RingNode* run = anker;
+	do{
+		std::cout << run << std::endl;
+		run = run->getNext();
+	}while(run != anker);
 }
 
 
@@ -94,6 +102,10 @@ void Ring::addNode(std::string description, std::string symbolic_data) {
 		anker = new_entry;
 		incrementAges();
 	}
+	/*std::cout << "In addNode(" << description << ", " << symbolic_data << "):\n";
+	std::cin.get();
+	printTest();
+	std::cout << "Ende addNode...\n\n\n";*/
 }
 
 bool Ring::search(std::string symbolic_data)const {
