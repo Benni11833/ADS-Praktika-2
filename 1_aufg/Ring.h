@@ -12,8 +12,8 @@
 class Ring {
 
 private:
-	int Anzahl_Nodes_;
-	RingNode* anker_;
+	int AnzahlNodes;
+	RingNode* anker;
 	//Hilfsmethoden
 	RingNode* getLast();
 	void incrementAges();	//Aktualisiert Alter aller Nodes

@@ -22,7 +22,7 @@ public:
 	int getAge()const;
 	void setAge(int new_age);
 	std::string getDescription()const;
-	void setDescritpion(std::string description);
+	void setDescription(std::string description);
 	std::string getData()const;
 	void setData(std::string new_symbolic_data);
 	RingNode* getNext()const;
