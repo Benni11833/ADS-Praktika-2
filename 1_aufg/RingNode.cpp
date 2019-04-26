@@ -32,9 +32,9 @@ void RingNode::setData(std::string new_symbolic_data) {
 	symbolic_data_ = new_symbolic_data;
 }
 
-
-
-RingNode* RingNode::getNext()const { return next_; }
+RingNode* RingNode::getNext()const { 
+	return next_; 
+}
 
 void RingNode::setNext(RingNode* new_next) {
 	next_ = new_next;

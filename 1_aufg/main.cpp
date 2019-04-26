@@ -21,7 +21,7 @@ void printmenu() {
 
 int main()
 {
-	//int result = Catch::Session().run();
+	int result = Catch::Session().run();
 	// Ihr Code hier:
 	int x{ 0 };
 	std::string desc{ "" }, data{ "" };
@@ -34,17 +34,37 @@ int main()
 		switch (x) {
 		case 1:
 			std::cout << "+Neuen Datensatz einfuegen" << std::endl
-				<< "Beschreibung ?> "; std::getline(std::cin, desc);
-			std::cout << "Daten ?> ";	std::getline(std::cin, data);
+				<< "Beschreibung ?> "; 
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');	std::getline(std::cin, desc);
+			std::cout << "Daten ?> ";		std::getline(std::cin, data);
 			r1.addNode(desc, data);
-			std::cout << "+Ihr Datensatz wurde hinzugefuegt." << std::endl;
+			std::cout << "+Ihr Datensatz wurde hinzugefuegt." << std::endl << "?> ";
 			break;
 		
 		case 2:
+			std::cout << "+Nach welchen Daten soll gesucht werden?"
+				<< std::endl << "?> ";	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');		std::getline(std::cin, data);
+			if (!r1.search(data)) {
+				std::cout << "+ Datensatz konnte nicht gefunden werden." << std::endl << "?> ";
+			}
+			else {
+				std::cout << "?> ";
+			}
+			break;
 
+		case 3:
+			r1.print();
+			std::cout << "?> ";
+			break;
+		default:
+			std::cout << "?> ";
 			break;
 		}
 	}
+	/*Ring rloop;
+	rloop.addNode("Alpha", "Data");
+	rloop.addNode("Beta", "Data");
+	rloop.addNode("Gamma", "Data");*/
 
 	//
 	///////////////////////////////////////
