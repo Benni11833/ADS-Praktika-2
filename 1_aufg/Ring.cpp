@@ -85,19 +85,15 @@ void Ring::addNode(std::string description, std::string symbolic_data) {
 		if (AnzahlNodes < Max_Ring_Size) {
 			RingNode* youngest = getLast();
 			RingNode* oldest = getOldestNode();
-			oldest->setNext(new_entry);
-			new_entry->setNext(youngest);
+			new_entry->setNext(anker->getNext());
+			anker->setNext(new_entry);
 			++AnzahlNodes;
 		}
 		else {	//aeltesten loeschen
-			/*RingNode* del = getOldestNode();
-			getPredecessor(getLast())->setNext(new_entry);
-			new_entry->setNext(anker);
-			delete del;*/
-			RingNode* youngest = getLast();
 			RingNode* oldest = getOldestNode();
+			RingNode* youngest = getLast();
 			new_entry->setNext(oldest->getNext());
-			youngest->setNext(new_entry);
+			anker->setNext(new_entry);
 			delete oldest;
 		}
 		anker = new_entry;
