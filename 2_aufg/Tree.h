@@ -15,6 +15,14 @@ class Tree {
 private:
 	TreeNode * anker;
 	int NodeIDCounter;
+	bool rec_searchNode(TreeNode* tmp, std::string Name);
+	TreeNode* searchNode(int NodePosID);
+	bool isLeaf(TreeNode*);
+	bool isRoot(TreeNode*);
+	bool has2Follower(TreeNode*);
+	bool has1Follower(TreeNode*);
+	TreeNode* Min(TreeNode*);
+	void print_preorder(TreeNode*);
 public:
 	Tree();
 	void addNode(std::string Name, int Alter, double Einkommen, int PLZ);

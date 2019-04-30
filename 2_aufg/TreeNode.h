@@ -7,6 +7,8 @@
 #include <string>
 #include <iomanip>
 
+#define setw_width 5
+
 using namespace std;
 
 class TreeNode{
@@ -39,5 +41,4 @@ class TreeNode{
 		void setLeft(TreeNode*);
 		void setRight(TreeNode*);
 		void print();
-
 };
