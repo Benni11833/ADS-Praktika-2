@@ -19,8 +19,8 @@ private:
 	TreeNode* searchNode(int NodePosID);
 	bool isLeaf(TreeNode*);
 	bool isRoot(TreeNode*);
-	bool has2Follower(TreeNode*);
-	bool has1Follower(TreeNode*);
+	bool has2Child(TreeNode*);
+	bool has1Child(TreeNode*);
 	TreeNode* Min(TreeNode*);
 	void print_preorder(TreeNode*);
 public:

@@ -39,12 +39,12 @@ bool Tree::isRoot(TreeNode* tmp) {
 	return (anker == tmp);
 }
 
-bool Tree::has2Follower(TreeNode* tmp) {
+bool Tree::has2Child(TreeNode* tmp) {
 	return (tmp->getRight() && tmp->getLeft());
 }
 
-bool Tree::has1Follower(TreeNode* tmp) {
-	return (!has2Follower(tmp) && !isLeaf(tmp));
+bool Tree::has1Child(TreeNode* tmp) {
+	return (!has2Child(tmp) && !isLeaf(tmp));
 }
 
 void Tree::print_preorder(TreeNode *tmp) {
@@ -100,7 +100,39 @@ void Tree::addNode(std::string Name, int Alter, double Einkommen, int PLZ)
 
 void Tree::deleteNode(int PosID)
 {
-	
+	if (anker) {
+		TreeNode *found{ nullptr }, *parent{ nullptr };
+		while (found && PosID != found->getNodePosID()) {
+			parent = found;
+			if (PosID < found->getNodePosID())
+				found = found->getLeft();
+			else
+				found = found->getRight();
+		}
+		if (found && parent) {	//kein Kind
+
+			if (isLeaf(found)) {
+				if (parent->getRight() == found)
+					parent->setRight(nullptr);
+				else
+					parent->setLeft(nullptr);
+				delete found;
+			}
+			else if (has1Child(found)) {	//1 Kind
+				if (parent->getRight() == found)
+					if (found->getRight())
+						parent->setRight(found->getRight());
+					else
+						parent->setRight(found->getLeft());
+				else
+					if (found->getRight())
+						parent->setLeft(found->getRight());
+					else
+						parent->setLeft(found->getLeft());
+			}//else if(has1Child(found))
+
+		}//if(found && parent)
+	}
 }
 
 bool Tree::searchNode(std::string Name)
