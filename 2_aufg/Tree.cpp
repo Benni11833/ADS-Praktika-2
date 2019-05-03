@@ -14,6 +14,8 @@ using namespace std;
 bool Tree::rec_searchNode(TreeNode* tmp, std::string Name)
 {
 	static bool flag{ false };
+	if (tmp == anker)	//wenn flag auf true steht von vorherigen aufrufen
+		flag = false;
 	if (tmp) {
 		if (tmp->getName() == Name) {
 			flag = true;
@@ -21,11 +23,11 @@ bool Tree::rec_searchNode(TreeNode* tmp, std::string Name)
 				<< ", Alter: " << tmp->getAlter() << ", Einkommen: " << tmp->getEinkommen()
 				<< ", PLZ: " << tmp->getPLZ() << ", PosID: " << tmp->getNodePosID()
 				<< std::endl;
-
+		}
 			//Teilbaum weiter durchlaufen - links,rechts
 			rec_searchNode(tmp->getLeft(), Name);
 			rec_searchNode(tmp->getRight(), Name);
-		}
+		
 		if (tmp == anker)
 			return flag;	//baum wurde durchlaufen
 	}
@@ -72,6 +74,19 @@ TreeNode* Tree::searchNode(int NodePosID) {	//iterativ - nullptr wenn nicht vorh
 	return x;
 }
 
+TreeNode* Tree::getParent(TreeNode *tmp) {
+	TreeNode *run{ anker };
+	if (isRoot(tmp))
+		return nullptr;
+	while (run && run->getRight() != tmp && run->getLeft() != tmp) {
+		if (tmp->getNodePosID() < run->getNodePosID())
+			run = run->getLeft();
+		else
+			run = run->getRight();
+	}
+	return run;
+}
+
 
 Tree::Tree()
 	:anker{ nullptr }, NodeIDCounter{ 0 }
@@ -101,7 +116,7 @@ void Tree::addNode(std::string Name, int Alter, double Einkommen, int PLZ)
 void Tree::deleteNode(int PosID)
 {
 	if (anker) {
-		TreeNode *found{ nullptr }, *parent{ nullptr };
+		TreeNode *found{ anker }, *parent{ nullptr };
 		while (found && PosID != found->getNodePosID()) {
 			parent = found;
 			if (PosID < found->getNodePosID())
@@ -109,7 +124,7 @@ void Tree::deleteNode(int PosID)
 			else
 				found = found->getRight();
 		}
-		if (found && parent) {	//kein Kind
+		if (found) {	//kein Kind
 
 			if (isLeaf(found)) {
 				if (parent->getRight() == found)
@@ -129,10 +144,23 @@ void Tree::deleteNode(int PosID)
 						parent->setLeft(found->getRight());
 					else
 						parent->setLeft(found->getLeft());
+				delete found;
 			}//else if(has1Child(found))
+			else if (has2Child(found)) {
+				TreeNode *min = Min(found->getRight());
+				if (has1Child(min))	//wenn min noch rechte kinder hat
+					getParent(min)->setLeft(min->getRight());
+				min->setRight(found->getRight());
+				min->setLeft(found->getLeft());
+				if (parent->getRight() == found)
+					parent->setRight(min);
+				else
+					parent->setLeft(min);
+				delete found;
+			}
 
-		}//if(found && parent)
-	}
+		}//if(found)
+	}//if(anker)
 }
 
 bool Tree::searchNode(std::string Name)

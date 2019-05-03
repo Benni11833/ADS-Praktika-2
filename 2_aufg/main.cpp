@@ -28,11 +28,14 @@ void readData(std::string& name, int& alter, double& einkommen, int& plz) {
 
 int main() {
 
-	//int result = Catch::Session().run();
+	int result = Catch::Session().run();
+	system("pause");
+	return 0;
 
 	Tree t1;
 	t1.addNode("Dieter", 99, -52.32, 52066);
-	int choice{ -1 };
+	t1.addNode("Benny", 20, 368.32, 52893);
+	char choice{ -1 };
 	printmenu();
 	std::string name{ "" };
 	int alter{ 0 }, plz{ 0 };	double einkommen{ 0.00 };
@@ -40,8 +43,10 @@ int main() {
 	while (true) {
 		std::cout << "?>";
 		std::cin >> choice;
+		if (choice-'0' < 1 || choice-'0' > 5)
+			break;
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		switch (choice) {
+		switch (choice-'0') {
 		case 1:
 			readData(name, alter, einkommen, plz);
 			t1.addNode(name, alter, einkommen, plz);

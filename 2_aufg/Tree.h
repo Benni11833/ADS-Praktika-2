@@ -23,6 +23,7 @@ private:
 	bool has1Child(TreeNode*);
 	TreeNode* Min(TreeNode*);
 	void print_preorder(TreeNode*);
+	TreeNode* getParent(TreeNode *);
 public:
 	Tree();
 	void addNode(std::string Name, int Alter, double Einkommen, int PLZ);
