@@ -29,12 +29,8 @@ void readData(std::string& name, int& alter, double& einkommen, int& plz) {
 int main() {
 
 	int result = Catch::Session().run();
-	system("pause");
-	return 0;
 
 	Tree t1;
-	t1.addNode("Dieter", 99, -52.32, 52066);
-	t1.addNode("Benny", 20, 368.32, 52893);
 	char choice{ -1 };
 	printmenu();
 	std::string name{ "" };

@@ -124,16 +124,26 @@ void Tree::deleteNode(int PosID)
 			else
 				found = found->getRight();
 		}
-		if (found) {	//kein Kind
+		if (found) {
 
-			if (isLeaf(found)) {
-				if (parent->getRight() == found)
+		if (isLeaf(found)) {
+				if (isRoot(found))	//wenn Root einziger Eintrag ist -> nullptr
+					anker = nullptr;
+				else if (parent->getRight() == found)
 					parent->setRight(nullptr);
 				else
 					parent->setLeft(nullptr);
 				delete found;
 			}
 			else if (has1Child(found)) {	//1 Kind
+				if (isRoot(found)) {
+					if (found->getRight())
+						anker = found->getRight();
+					else
+						anker = found->getLeft();
+					return;
+				}
+
 				if (parent->getRight() == found)
 					if (found->getRight())
 						parent->setRight(found->getRight());
@@ -147,17 +157,22 @@ void Tree::deleteNode(int PosID)
 				delete found;
 			}//else if(has1Child(found))
 			else if (has2Child(found)) {
-				TreeNode *min = Min(found->getRight());
-				if (has1Child(min))	//wenn min noch rechte kinder hat
-					getParent(min)->setLeft(min->getRight());
-				min->setRight(found->getRight());
+				TreeNode *min = Min(found->getRight()), *min_parent = getParent(min);
+				if (has1Child(min) && !isRoot(min_parent))	//wenn min noch rechte kinder hat
+					min_parent->setLeft(min->getRight());
+				else if(min_parent != found && !isRoot(min_parent))
+					min_parent->setLeft(nullptr);
+				if(!isRoot(min_parent))	//sonst wird ueberschrieben(min zeigt sonst auf sich selbst)
+					min->setRight(found->getRight());
 				min->setLeft(found->getLeft());
-				if (parent->getRight() == found)
+				if (parent && parent->getRight() == found)
 					parent->setRight(min);
-				else
+				else if(parent)
 					parent->setLeft(min);
+				if (isRoot(found))
+					anker = min;
 				delete found;
-			}
+			}//else if(has2child(found))
 
 		}//if(found)
 	}//if(anker)
