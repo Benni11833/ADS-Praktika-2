@@ -117,7 +117,7 @@ void Tree::deleteNode(int PosID)
 {
 	if (anker) {
 		TreeNode *found{ anker }, *parent{ nullptr };
-		while (found && PosID != found->getNodePosID()) {
+		while (found && PosID != found->getNodePosID()) {	//found und parent suchen
 			parent = found;
 			if (PosID < found->getNodePosID())
 				found = found->getLeft();
@@ -127,16 +127,16 @@ void Tree::deleteNode(int PosID)
 		if (found) {
 
 		if (isLeaf(found)) {
-				if (isRoot(found))	//wenn Root einziger Eintrag ist -> nullptr
+				if (isRoot(found)/*|| !parent*/)	//wenn Root einziger Eintrag ist -> nullptr
 					anker = nullptr;
-				else if (parent->getRight() == found)
+				else if (parent->getRight() == found)	//knoten, auf dem parent von found zeigte auf nullptr setzten
 					parent->setRight(nullptr);
 				else
 					parent->setLeft(nullptr);
 				delete found;
-			}
+			}//if(isLeaf(found))
 			else if (has1Child(found)) {	//1 Kind
-				if (isRoot(found)) {
+				if (isRoot(found)) {	//wenn Wurzel, einziges Kind wird zur neuen wurzel
 					if (found->getRight())
 						anker = found->getRight();
 					else
@@ -144,7 +144,7 @@ void Tree::deleteNode(int PosID)
 					return;
 				}
 
-				if (parent->getRight() == found)
+				if (parent->getRight() == found)	//Kinderknoten umbiegen des parents von found
 					if (found->getRight())
 						parent->setRight(found->getRight());
 					else
@@ -158,18 +158,18 @@ void Tree::deleteNode(int PosID)
 			}//else if(has1Child(found))
 			else if (has2Child(found)) {
 				TreeNode *min = Min(found->getRight()), *min_parent = getParent(min);
-				if (has1Child(min) && !isRoot(min_parent))	//wenn min noch rechte kinder hat
-					min_parent->setLeft(min->getRight());
-				else if(min_parent != found && !isRoot(min_parent))
+				if (has1Child(min) && !isRoot(min_parent))	//wenn min noch rechtes kind hat
+					min_parent->setLeft(min->getRight());	//umbiegen von min_parent auf das rechte Kind
+				else if(min_parent != found && !isRoot(min_parent))	//sonst wird found ueberschrieben und spaeter falsch umgebogen
 					min_parent->setLeft(nullptr);
 				if(!isRoot(min_parent))	//sonst wird ueberschrieben(min zeigt sonst auf sich selbst)
 					min->setRight(found->getRight());
-				min->setLeft(found->getLeft());
-				if (parent && parent->getRight() == found)
+				min->setLeft(found->getLeft());	//min->left auf found->left umbiegen
+				if (parent && parent->getRight() == found)	//parent->kind umbiegen
 					parent->setRight(min);
 				else if(parent)
 					parent->setLeft(min);
-				if (isRoot(found))
+				if (isRoot(found))	//wenn found wurzel ist, anker auf neue wurzel setzten, sonst anker == 0dddddd...
 					anker = min;
 				delete found;
 			}//else if(has2child(found))
