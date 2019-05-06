@@ -16,9 +16,12 @@ using namespace std;
 void getCsvData(Tree* t, std::string& name, int& alter, double& einkommen, int& plz) {
 		std::string tmp{ "" };
 		std::ifstream csvIn(CSVFILE);
-		while (csvIn.good() && !csvIn.eof()) {
-			
-
+		while (csvIn.good() && !csvIn.eof() && std::getline(csvIn, name, ';') && name.size() > 0) {
+			//std::getline(csvIn, name, ';');
+			std::getline(csvIn, tmp, ';');	alter = atoi(tmp.c_str());
+			std::getline(csvIn, tmp, ';');	einkommen = atof(tmp.c_str());
+			std::getline(csvIn, tmp, '\n');	plz = atoi(tmp.c_str());
+			//std::getline(csvIn, tmp);
 			t->addNode(name, alter, einkommen, plz);
 		}
 		csvIn.close();
