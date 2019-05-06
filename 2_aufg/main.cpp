@@ -4,11 +4,33 @@
 *
 *************************************************/
 #define CATCH_CONFIG_RUNNER
+#define CSVFILE "ExportZielanalyse.csv"
+
 #include <iostream>
+#include <fstream>
 #include "Tree.h"
 #include "catch.h"
 
 using namespace std;
+
+void getCsvData(std::string& name, int& alter, double& einkommen, int& plz) {
+	char choice{ '\0' };
+	std::cout << "Moechten Sie die Daten aus der Datei \"" << CSVFILE
+		<< "\" importieren (j/n) ?>";
+	std::cin >> choice;
+	if (choice == 'j' || choice == 'J') {
+		std::string tmp{ "" };
+		std::ifstream csvIn(CSVFILE);
+		while (csvIn.good()/* && !csvIn.eof()*/) {
+
+			std::getline(csvIn, name, ',');
+			std::getline(csvIn, tmp, ',');	alter = atoi(tmp.c_str());
+
+		}
+		csvIn.close();
+		std::cout << "Daten wurden dem Baum hinzugefuegt." << std::endl;
+	}
+}
 
 void printmenu() {
 	std::cout << "1) Datensatz einfuegen, manuell" << std::endl
