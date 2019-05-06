@@ -13,23 +13,16 @@
 
 using namespace std;
 
-void getCsvData(std::string& name, int& alter, double& einkommen, int& plz) {
-	char choice{ '\0' };
-	std::cout << "Moechten Sie die Daten aus der Datei \"" << CSVFILE
-		<< "\" importieren (j/n) ?>";
-	std::cin >> choice;
-	if (choice == 'j' || choice == 'J') {
+void getCsvData(Tree* t, std::string& name, int& alter, double& einkommen, int& plz) {
 		std::string tmp{ "" };
 		std::ifstream csvIn(CSVFILE);
-		while (csvIn.good()/* && !csvIn.eof()*/) {
+		while (csvIn.good() && !csvIn.eof()) {
+			
 
-			std::getline(csvIn, name, ',');
-			std::getline(csvIn, tmp, ',');	alter = atoi(tmp.c_str());
-
+			t->addNode(name, alter, einkommen, plz);
 		}
 		csvIn.close();
 		std::cout << "Daten wurden dem Baum hinzugefuegt." << std::endl;
-	}
 }
 
 void printmenu() {
@@ -71,8 +64,10 @@ int main() {
 			std::cout << "+ Ihr Datensatz wurde eingefuegt" << std::endl;
 			break;
 		case 2:
-			std::cout << "Noch nicht fertig...\n";
-			std::cin.get();
+			std::cout << "Moechten Sie die Daten aus der Datei \"" << CSVFILE
+				<< "\" importieren (j/n) ?>";
+			std::cin >> choice;
+			getCsvData(&t1, name, alter, einkommen, plz);
 			break;
 		case 3:
 			std::cout << "+ Bitte geben Sie den zu loschenden Datensatz an" << std::endl
