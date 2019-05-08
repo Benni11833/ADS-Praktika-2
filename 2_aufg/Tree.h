@@ -15,7 +15,6 @@ class Tree {
 private:
 	TreeNode * anker;
 	int NodeIDCounter;
-	bool rec_searchNode(TreeNode* tmp, std::string Name);
 	TreeNode* searchNode(int NodePosID);
 	bool isLeaf(TreeNode*);
 	bool isRoot(TreeNode*);
@@ -30,6 +29,7 @@ public:
 	void deleteNode(int PosID);
 	bool searchNode(std::string Name);
 	void printAll();
+	void printLevelOrder(void);
 	// friend-Funktionen sind für die Tests erforderlich und müssen unangetastet bleiben! 
 	friend TreeNode * get_anker(Tree& TN);
 };
