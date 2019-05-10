@@ -83,8 +83,8 @@ void Ring::addNode(std::string description, std::string symbolic_data) {
 	}
 	else {
 		if (AnzahlNodes < Max_Ring_Size) {
-			RingNode* youngest = getLast();
-			RingNode* oldest = getOldestNode();
+			//RingNode* youngest = getLast();
+			//RingNode* oldest = getOldestNode();
 			new_entry->setNext(anker->getNext());
 			anker->setNext(new_entry);
 			++AnzahlNodes;
@@ -106,18 +106,19 @@ void Ring::addNode(std::string description, std::string symbolic_data) {
 }
 
 bool Ring::search(std::string symbolic_data)const {
+	bool flag{ false };
 	if (AnzahlNodes == 0)
-		return false;
+		return flag;
 	RingNode* run = anker;
 	do {
 		if (run->getData() == symbolic_data) {
 			std::cout << "+ Gefunden in Backup: OldAge " << run->getAge() << ", Beschreibung: "
 			<< run->getDescription() << ", Daten: " << run->getData() << std::endl;
-			return true;
+			flag = true;
 		}
 		run = run->getNext();
 	} while (run != anker);
-	return false;
+	return flag;
 }
 
 void Ring::print()const {

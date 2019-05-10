@@ -51,7 +51,7 @@ TEST_CASE("Ring Testing", "[Ring]" ) {
 
 		REQUIRE(get_AnzahlNodes(rloop) == 6);
 		
-		REQUIRE (rloop.search("Data1")== false);	
+		REQUIRE (rloop.search("Data1")== false);
 		REQUIRE (rloop.search("Data2")== false);	
 		REQUIRE (rloop.search("Data7")== true);	
 		REQUIRE (rloop.search("Data5")== true);	

@@ -23,7 +23,7 @@ int main()
 {
 	int result = Catch::Session().run();
 	// Ihr Code hier:
-	int x{ 0 };
+	char x{ 0 };
 	std::string desc{ "" }, data{ "" };
 	Ring r1;
 
@@ -31,7 +31,8 @@ int main()
 
 	while (true) {
 		std::cin >> x;
-		switch (x) {
+		switch (x - '0') {
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		case 1:
 			std::cout << "+Neuen Datensatz einfuegen" << std::endl
 				<< "Beschreibung ?> "; 
@@ -57,8 +58,8 @@ int main()
 			std::cout << "?> ";
 			break;
 		default:
-			std::cout << "?> ";
-			break;
+			system("Pause");
+			return 0;
 		}
 	}
 
